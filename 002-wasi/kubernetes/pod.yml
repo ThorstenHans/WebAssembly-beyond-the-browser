@@ -1,0 +1,36 @@
+kind: Pod
+apiVersion: v1
+metadata:
+  name: hello-wasi
+  labels:
+    runtime: wasm-wasi
+spec:
+  containers:
+  - name: main
+    image: wasmftw.azurecr.io/hello-wasi:1.0.0
+    env:
+     - name: TARGET
+       value: /mnt/data
+    resources:
+      requests:
+        cpu: 10m
+        memory: 32Mi
+      limits:
+        cpu: 100m
+        memory: 64Mi
+    volumeMounts:
+    - mountPath: /mnt/data
+      name: volume
+  volumes:
+    - name: volume
+      hostPath:
+        path: /Users/thorsten/dev/thorstenhans/wasm-beyond-the-browser/002-wasi/k8s-out
+  tolerations:
+    - key: "kubernetes.io/arch"
+      operator: "Equal"
+      value: "wasm32-wasi"
+      effect: "NoExecute"
+    - key: "kubernetes.io/arch"
+      operator: "Equal"
+      value: "wasm32-wasi"
+      effect: "NoSchedule"

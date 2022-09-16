@@ -1,0 +1,7 @@
+serverBlock: |-
+  server {
+    listen 0.0.0.0:8080;
+    location / {
+            proxy_pass http://WASM_NODE_IP:3001;
+    }
+  }

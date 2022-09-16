@@ -1,0 +1,26 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: hello-wasm
+  labels:
+    runtime: wasm
+spec:
+  containers:
+  - name: main
+    image: wasmftw.azurecr.io/hello-wasm:1.0.1
+    resources:
+      requests:
+        memory: "16Mi"
+        cpu : "10m"
+      limits:
+        memory: "32Mi"
+        cpu: "25m"
+  tolerations:
+    - key: "kubernetes.io/arch"
+      operator: "Equal"
+      value: "wasm32-wasi"
+      effect: "NoExecute"
+    - key: "kubernetes.io/arch"
+      operator: "Equal"
+      value: "wasm32-wasi"
+      effect: "NoSchedule"

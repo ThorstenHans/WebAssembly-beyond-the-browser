@@ -1,0 +1,14 @@
+spin_version = "1"
+authors = ["Thorsten Hans <thorsten.hans@gmail.com>"]
+description = "A sample that shows how to build WASM modules with Spin"
+name = "hello-cloudland2022"
+trigger = { type = "http", base = "/" }
+version = "0.1.0"
+
+[[component]]
+id = "hello-cloudland2022"
+source = "target/wasm32-wasi/release/hello_cloudland2022.wasm"
+[component.trigger]
+route = "/..."
+[component.build]
+command = "cargo build --target wasm32-wasi --release"
